@@ -1,0 +1,96 @@
+.member-info {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.member-info h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  color: var(--members-primary);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 3px solid var(--members-secondary);
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+}
+
+.member-info h3 {
+  font-size: 1.4rem;
+  margin: 1.5rem 0 0.8rem 0;
+  color: var(--accent);
+  padding-left: 1rem;
+  border-left: 4px solid var(--members-primary);
+}
+
+.member-info p {
+  margin-bottom: var(--spacing-sm);
+  text-align: justify;
+  line-height: 1.9;
+  color: var(--text-secondary);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  max-width: 800px;
+}
+
+.member-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(255, 214, 10, 0.2) 0%, rgba(255, 183, 0, 0.15) 100%);
+  border-radius: 12px;
+  border: 2px solid var(--members-primary);
+  box-shadow: 0 2px 8px rgba(255, 214, 10, 0.2);
+}
+
+.stat-item {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(255, 214, 10, 0.3);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .member-info h2 {
+    font-size: 1.8rem;
+  }
+
+  .member-info h3 {
+    font-size: 1.2rem;
+  }
+
+  .member-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+}

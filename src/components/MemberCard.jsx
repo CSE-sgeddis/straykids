@@ -5,12 +5,15 @@ const MemberCard = ({ member, isActive, onClick }) => {
     <a 
       href={`#${member.memberId}`}
       className={`profile-image ${isActive ? 'active' : ''}`}
-      onClick={onClick}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick();
+      }}
     >
       <img 
         src={member.img_name}
-        width="200"
-        height="200"
+        width="80"
+        height="80"
         alt={member.name}
       />
       <span>{member.name}</span>

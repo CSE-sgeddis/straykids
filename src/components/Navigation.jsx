@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import "./../css/Navigation.css";
+import "../css/Navigation.css";
 
 const Navigation = ()=>{
     return (
@@ -14,4 +14,4 @@ const Navigation = ()=>{
     );
 };
 
-export default Header;
+export default Navigation;

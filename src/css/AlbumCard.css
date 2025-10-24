@@ -1,0 +1,32 @@
+.album-card {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card {
+  border: 1px solid var(--border);
+  padding: 0.5rem;
+  background: #f9f9f9;
+  text-align: center;
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+}
+
+.album-title {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  color: var(--accent);
+  font-size: 1rem;
+}
