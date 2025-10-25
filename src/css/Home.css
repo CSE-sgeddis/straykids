@@ -1,6 +1,6 @@
 .main-page {
-  background: url("/images/Stray-Kids-Rome-Roma-min-2-scaled.jpg");
-  background-size: cover;
+  /*background: url("/images/Stray-Kids-Rome-Roma-min-2-scaled.jpg"); */
+  /*background-size: cover; */
   background-position: center;
   background-repeat: no-repeat;
   color: var(--text);
@@ -34,6 +34,7 @@
 
 .main-page main {
   min-height: 60vh;
+  flex: 1;
 }
 
 /* Mobile Responsive */
