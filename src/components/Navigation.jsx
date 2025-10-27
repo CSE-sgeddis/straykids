@@ -4,11 +4,11 @@ import "../css/Navigation.css";
 const Navigation = ()=>{
     return (
         <nav id="main-nav">
-            <u>
+            <ul>
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about">About</Link></li>
                 
-            </u>
+            </ul>
         </nav>
 
     );

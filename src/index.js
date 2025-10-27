@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import './index.css';
-import Layout from './Layout';
 import Home from './pages/Home';
 import Discography from './pages/Discography';
 import Media from './pages/Media';
@@ -14,7 +13,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route>
           <Route index element={<Home />}/>
           <Route path="discography" element={<Discography />}/>
           <Route path="media" element={<Media />}/>

@@ -4,7 +4,7 @@ import "./../css/Home.css";
 
 const Home = () => {
     return(
-        <div id="main-page"
+        <div className="main-page"
             style={{
             backgroundImage: `url(${process.env.PUBLIC_URL}/images/Stray-Kids-Rome-Roma-min-2-scaled.jpg)`,
             backgroundSize: 'cover',
