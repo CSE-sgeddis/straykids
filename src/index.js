@@ -11,7 +11,7 @@ import Community from './pages/Community';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route>
           <Route index element={<Home />}/>
