@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/straykids-1/static/css/main.374ec2a4.css",
+    "main.js": "/straykids-1/static/js/main.46d6ec2c.js",
+    "index.html": "/straykids-1/index.html",
+    "main.374ec2a4.css.map": "/straykids-1/static/css/main.374ec2a4.css.map",
+    "main.46d6ec2c.js.map": "/straykids-1/static/js/main.46d6ec2c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.374ec2a4.css",
+    "static/js/main.46d6ec2c.js"
+  ]
+}
