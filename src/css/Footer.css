@@ -42,6 +42,12 @@ footer nav a:hover {
 /* Hamburger Menu (not functional yet) */
 .hamburger {
   display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
 }
 
 .hamburger span {
@@ -52,6 +58,18 @@ footer nav a:hover {
   transition: 0.3s;
   display: block;
   border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(7px, 7px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
 }
 
 /* Mobile Responsive */
@@ -78,23 +96,44 @@ footer nav a:hover {
   }
 
   .hamburger span {
-    display: block;
-    width: 25px;
-    height: 3px;
     background: #000000;
-    margin: 3px auto;
-    border-radius: 2px;
-    transition: all 0.3s ease;
   }
 
   footer {
-    position: relative;
+    position: fixed;
+    bottom: 0;
   }
 
   footer nav ul {
-    display: flex;
+    display: none;
     flex-direction: column;
+    position: fixed;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    background-color: #1a1a1a;
+    padding: 1rem;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
     gap: 0.5rem;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  footer nav ul.active {
+    display: flex;
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 
   footer nav a {

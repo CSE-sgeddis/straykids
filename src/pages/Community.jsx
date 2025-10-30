@@ -1,5 +1,6 @@
 import Header from './../components/Header';
 import Footer from './../components/Footer';
+import ContactForm from './../components/ContactForm';
 import './../css/Community.css';
 
 const Community = () => {
@@ -15,13 +16,13 @@ const Community = () => {
         </section>
 
         <div className="community-feature">
-          <img src="/images/community/stayhideout.jpg" alt="Community Feature" height="600" width="600" />
+          <img src={`${process.env.PUBLIC_URL}/images/community/stayhideout.jpg`} alt="Community Feature" height="600" width="600" />
         </div>
 
         <section className="communication-section">
           <div className="comm-card">
             <h3>Communicate with<br />Stray Kids!</h3>
-            <img src="/images/community/skz.jpg" alt="Stray Kids" />
+            <img src={`${process.env.PUBLIC_URL}/images/community/skz.jpg`} alt="Stray Kids"/>
             <div className="link-container">
               <a 
                 href="https://www.instagram.com/realstraykids/" 
@@ -52,7 +53,7 @@ const Community = () => {
 
           <div className="comm-card">
             <h3>Communicate with<br />Stays!</h3>
-            <img src="/images/community/skzoo.jpg" alt="Stays Community" />
+            <img src={`${process.env.PUBLIC_URL}/images/community/skzoo.jpg`} alt="Stays Community" />
             <div className="link-container">
               <a 
                 href="https://www.reddit.com/r/straykids/" 
@@ -82,7 +83,11 @@ const Community = () => {
           </div>
         </section>
 
-        {}
+        {/* Contact Form Section */}
+        <section className="contact-section">
+          <h2>Contact Us</h2>
+          <ContactForm />
+        </section>
       </main>
 
       <Footer />

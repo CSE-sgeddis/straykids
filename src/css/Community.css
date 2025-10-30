@@ -135,3 +135,17 @@
     padding: 1.5rem;
   }
 }
+
+/* Contact Section */
+.contact-section {
+  margin-top: 3rem;
+  padding: 2rem 0;
+}
+
+.contact-section h2 {
+  color: white;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
