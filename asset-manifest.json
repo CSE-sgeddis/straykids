@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/straykids-1/static/css/main.a9522a14.css",
-    "main.js": "/straykids-1/static/js/main.0010deab.js",
-    "index.html": "/straykids-1/index.html",
-    "main.a9522a14.css.map": "/straykids-1/static/css/main.a9522a14.css.map",
-    "main.0010deab.js.map": "/straykids-1/static/js/main.0010deab.js.map"
+    "main.css": "/straykids/static/css/main.a9522a14.css",
+    "main.js": "/straykids/static/js/main.5166daa4.js",
+    "index.html": "/straykids/index.html",
+    "main.a9522a14.css.map": "/straykids/static/css/main.a9522a14.css.map",
+    "main.5166daa4.js.map": "/straykids/static/js/main.5166daa4.js.map"
   },
   "entrypoints": [
     "static/css/main.a9522a14.css",
-    "static/js/main.0010deab.js"
+    "static/js/main.5166daa4.js"
   ]
 }
