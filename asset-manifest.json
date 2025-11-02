@@ -1,13 +1,18 @@
 {
   "files": {
-    "main.css": "/straykids/static/css/main.a9522a14.css",
-    "main.js": "/straykids/static/js/main.5166daa4.js",
+    "main.css": "/straykids/static/css/main.3d993b1d.css",
+    "main.js": "/straykids/static/js/main.cda5507f.js",
+    "static/media/slide1.jpg": "/straykids/static/media/slide1.e9132c00a7b17ebb5e98.jpg",
+    "static/media/slide 3.jpg": "/straykids/static/media/slide 3.9e6d6c5828c1caddaf29.jpg",
+    "static/media/slide 2.jpg": "/straykids/static/media/slide 2.f90d59454e7c0f13efdc.jpg",
+    "static/media/slide 5.jpg": "/straykids/static/media/slide 5.0c77dc117730d6a092cd.jpg",
+    "static/media/slide 4.jpg": "/straykids/static/media/slide 4.4a7e29e9d849699a9f2e.jpg",
     "index.html": "/straykids/index.html",
-    "main.a9522a14.css.map": "/straykids/static/css/main.a9522a14.css.map",
-    "main.5166daa4.js.map": "/straykids/static/js/main.5166daa4.js.map"
+    "main.3d993b1d.css.map": "/straykids/static/css/main.3d993b1d.css.map",
+    "main.cda5507f.js.map": "/straykids/static/js/main.cda5507f.js.map"
   },
   "entrypoints": [
-    "static/css/main.a9522a14.css",
-    "static/js/main.5166daa4.js"
+    "static/css/main.3d993b1d.css",
+    "static/js/main.cda5507f.js"
   ]
 }
