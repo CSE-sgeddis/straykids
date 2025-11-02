@@ -1,14 +1,20 @@
 import Header from './../components/Header';
 import Footer from './../components/Footer';
 import ContactForm from './../components/ContactForm';
+import Slideshow from './../components/Slideshow';
 import './../css/Community.css';
 
 const Community = () => {
   return (
     <div className="community-page">
       <Header title="COMMUNITY" />
-      
+    
+
       <main>
+        <section className="slideshow-section">
+          <Slideshow />
+        </section>
+        
         <section className="content-area">
           <div className="content-text">
             <p>Welcome to the STAY community! This is the place where fans can connect, share their love for Stray Kids, and keep the spirit of STAY alive. Here, you'll find opportunities to chat with fellow fans, discover fan projects, and join discussions about music, performances, and events. You'll also be able to stay connected with Stray Kids through official updates, upcoming schedules, and special activities. This page will grow with more ways to connect, so check back often and let's make sure Stray Kids always stay together with STAY. Whether you're a longtime fan or just starting your journey, you'll find a welcoming space here. From sharing fan art and stories to supporting comeback promotions, every STAY has something to contribute. Together, we make Stray Kids stay!</p>

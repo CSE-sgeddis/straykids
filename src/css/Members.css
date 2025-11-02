@@ -39,7 +39,9 @@
   grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing-sm);
   max-height: fit-content;
-  overflow-y: visible;
+  overflow: visible;
+  background: rgba(255, 255, 255, 0.9); 
+  z-index: 2;
 }
 
 /* Member Content Section */
@@ -51,6 +53,8 @@
   min-height: calc(100vh - 200px);
   border-left: 5px solid var(--members-primary);
   border-top: 2px solid var(--members-secondary);
+  position: relative; 
+  z-index: 1; 
 }
 
 /* Mobile Responsive */

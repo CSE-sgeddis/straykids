@@ -120,6 +120,23 @@
   transform: translateY(-1px);
 }
 
+.slideshow-section {
+  margin: 2rem 0;
+  width: 100%;
+  padding: 0;
+}
+
+.community-page #slideshow {
+  max-width: 100%;
+  margin: 0;
+}
+
+.community-page #slideshow img {
+  max-height: 600px; 
+  width: 100%;
+  object-fit: cover;
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .community-page main {
@@ -133,6 +150,15 @@
 
   .content-text {
     padding: 1.5rem;
+  }
+
+  .slideshow-section {
+    padding: 0 1rem;
+    margin: 1rem auto;
+  }
+
+  .community-page #slideshow img {
+    max-height: 400px;
   }
 }
 

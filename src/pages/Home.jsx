@@ -1,6 +1,5 @@
 import {Link} from 'react-router-dom';
 import Footer from './../components/Footer';
-import Slideshow from './../components/Slideshow';
 import "./../css/Home.css";
 
 const Home = () => {
@@ -21,7 +20,6 @@ const Home = () => {
             </header>
 
             <main>
-                <Slideshow />
             </main>
             <Footer />
         </div>  

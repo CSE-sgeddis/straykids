@@ -21,6 +21,11 @@ const Contact = () => {
     if (data.success) {
       setResult("Form Submitted Successfully");
       event.target.reset();
+
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        setResult("");
+      }, 5000);
     } else {
       console.log("Error", data);
       setResult(data.message);
@@ -28,17 +33,62 @@ const Contact = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <input type="text" name="name" required/>
-        <input type="email" name="email" required/>
-        <textarea name="message" required></textarea>
+    <div className="contact-form-container">
+      <h3>Send Us a Message</h3>
+      <form onSubmit={onSubmit} className="contact-form">
+        <div className="form-group">
+          <label htmlFor="name">Name:</label>
+          <input 
+            type="text" 
+            id="name"
+            name="name" 
+            required
+            minLength="2"
+          />
+        </div>
 
-        <button type="submit">Submit Form</button>
+        <div className="form-group">
+          <label htmlFor="email">Email:</label>
+          <input 
+            type="email" 
+            id="email"
+            name="email" 
+            required
+          />
+        </div>
 
+        <div className="form-group">
+          <label htmlFor="subject">Subject:</label>
+          <input 
+            type="text" 
+            id="subject"
+            name="subject" 
+            required
+            minLength="3"
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="message">Message:</label>
+          <textarea 
+            id="message"
+            name="message" 
+            required
+            minLength="10"
+            rows="5"
+          />
+        </div>
+
+        <button type="submit" className="submit-btn">
+          {result === "Sending...." ? "Sending..." : "Send Message"}
+        </button>
+
+        {result && result !== "Sending...." && (
+          <div className={`form-message ${result.includes("Successfully") ? "success" : "error"}`}>
+            {result}
+          </div>
+        )}
       </form>
-      <span>{result}</span>
-
     </div>
   );
 }
