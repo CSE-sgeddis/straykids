@@ -1,0 +1,32 @@
+.album-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding: 2rem;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.album-list-item {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.album-list-item:hover {
+  transform: scale(1.02);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .album-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .album-list {
+    grid-template-columns: 1fr;
+  }
+}

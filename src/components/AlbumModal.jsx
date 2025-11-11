@@ -1,4 +1,3 @@
-import React from 'react';
 import './../css/AlbumModal.css';
 
 const AlbumModal = ({ album, onClose }) => {
