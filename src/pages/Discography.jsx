@@ -4,6 +4,7 @@ import Footer from './../components/Footer';
 import AlbumList from './../components/AlbumList';
 import AlbumModal from './../components/AlbumModal';
 import './../css/Discography.css';
+import AddAlbumForm from '../components/AddAlbumForm';
 
 const Discography = () => {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
@@ -21,15 +22,15 @@ const Discography = () => {
       <Header title="DISCOGRAPHY" subtitle="Albums" />
       
       <main>
-        {/* AlbumList component handles fetching and displaying */}
-        <AlbumList onAlbumClick={handleAlbumClick} />
+        <AddAlbumForm onAlbumAdded={handleAlbumAdded} />
+
+        <AlbumList onAlbumClick={handleAlbumClick} refreshTrigger={refreshTrigger}/>
         
         <div className="pagination">
           <span id="pageInfo">All releases</span>
         </div>
       </main>
 
-      {/* Modal for album details */}
       {selectedAlbum && (
         <AlbumModal album={selectedAlbum} onClose={handleCloseModal} />
       )}

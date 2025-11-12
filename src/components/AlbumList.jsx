@@ -26,7 +26,7 @@ const AlbumList = ({ onAlbumClick, limit }) => {
         };
 
         loadAlbums();
-    }, [limit]);
+    }, [limit, refreshTrigger]);
 
     if (loading) {
         return <div className="loading">Loading albums from server...</div>;
