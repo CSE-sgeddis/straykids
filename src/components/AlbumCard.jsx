@@ -4,7 +4,7 @@ const AlbumCard = ({album}) => {
     return (
         <div className="abum-card card">
             <img 
-                src={album.img_name}
+                src={"https://straykids-server-2.onrender.com" + album.img_name}
                 alt={album.title}
                 width="316"
                 height="316"

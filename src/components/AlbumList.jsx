@@ -14,7 +14,7 @@ const AlbumList = ({ onAlbumClick, limit, refreshTrigger }) => {
     useEffect(() => {
         const loadAlbums = async () => {
             try {
-                const response = await axios.get("https://straykids-server-2.onrender.com");
+                const response = await axios.get("https://straykids-server-2.onrender.com/api/albums");
                 const albumsToShow = limit ? response.data.slice(0, limit) : response.data;
                 setAlbums(albumsToShow);
                 setLoading(false);

@@ -7,11 +7,13 @@ import './../css/Discography.css';
 import AddAlbumForm from '../components/AddAlbumForm';
 
 const Discography = () => {
-  const [selectedAlbum, setSelectedAlbum] = useState(null);
+  const [selectedAlbum, setSelectedAlbum] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
+  //<AddAlbumForm onAlbumAdded={handleAlbumAdded} />
+  
   const handleAlbumClick = (album) => {
-    setSelectedAlbum(album);
+    //setSelectedAlbum(album);
   };
 
   const handleCloseModal = () => {
@@ -27,7 +29,7 @@ const Discography = () => {
       <Header title="DISCOGRAPHY" subtitle="Albums" />
       
       <main>
-        <AddAlbumForm onAlbumAdded={handleAlbumAdded} />
+        
 
         <AlbumList 
           onAlbumClick={handleAlbumClick} 
@@ -39,7 +41,7 @@ const Discography = () => {
         </div>
       </main>
 
-      {selectedAlbum && (
+      {selectedAlbum? ("") : (
         <AlbumModal album={selectedAlbum} onClose={handleCloseModal} />
       )}
 
