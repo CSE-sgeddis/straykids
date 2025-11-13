@@ -1,7 +1,7 @@
 import './../css/AlbumModal.css';
 
 const AlbumModal = ({ album, onClose }) => {
-  if (!album) return null;
+  if (!album) return false;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -15,8 +15,9 @@ const AlbumModal = ({ album, onClose }) => {
 
         <div className="modal-body">
           <div className="album-image">
-            <img src={`${process.env.PUBLIC_URL}${album.img_name}`} alt={album.title} />
+            <img src={"https://straykids-server-2.onrender.com" + album.img_name} alt={album.title} />
           </div>
+
 
           <div className="album-info-details">
             <div className="info-row">

@@ -15,7 +15,7 @@ const Discography = () => {
   };
 
   const handleCloseModal = () => {
-    setSelectedAlbum(null);
+    setSelectedAlbum(false);
   };
 
   const handleAlbumAdded = (newAlbum) => {
@@ -38,9 +38,9 @@ const Discography = () => {
         </div>
       </main>
 
-      {selectedAlbum? ("") : (
+      {selectedAlbum ? (
         <AlbumModal album={selectedAlbum} onClose={handleCloseModal} />
-      )}
+      ) : false}
 
       <AddAlbumForm onAlbumAdded={handleAlbumAdded} />
 

@@ -43,6 +43,7 @@ const AlbumList = ({ onAlbumClick, limit, refreshTrigger }) => {
                     key={album._id} 
                     onClick={() => onAlbumClick(album)}
                     className="album-list-item"
+                    style={{ cursor: 'pointer' }}
                 >
                     <AlbumCard 
                         album={album}
