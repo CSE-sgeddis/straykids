@@ -3,13 +3,13 @@ import axios from "axios";
 import AlbumCard from "./AlbumCard";
 import "./../css/AlbumList.css";
 
-const AlbumList = ({ onAlbumClick, limit }) => {
+const AlbumList = ({ onAlbumClick, limit, refreshTrigger }) => {
     const [albums, setAlbums] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
 
-    const SERVER_URL = 'http://localhost:3001'; 
+    const SERVER_URL = 'https://straykids-server-2.onrender.com'; 
 
     useEffect(() => {
         const loadAlbums = async () => {

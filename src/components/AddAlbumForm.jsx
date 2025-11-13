@@ -15,25 +15,21 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
   const [submitStatus, setSubmitStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const SERVER_URL = 'http://localhost:3001'; // Change to Render URL after deployment
+  const SERVER_URL = 'https://straykids-server-2.onrender.com'; 
 
-  // Client-side validation (matches server Joi validation)
   const validateForm = () => {
     const newErrors = {};
 
-    // Title validation
     if (!formData.title.trim()) {
       newErrors.title = 'Title is required';
     } else if (formData.title.length > 100) {
       newErrors.title = 'Title must be 100 characters or less';
     }
 
-    // Release date validation
     if (!formData.releaseDate) {
       newErrors.releaseDate = 'Release date is required';
     }
 
-    // Description validation
     if (!formData.description.trim()) {
       newErrors.description = 'Description is required';
     } else if (formData.description.length < 10) {
@@ -42,13 +38,11 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
       newErrors.description = 'Description must be 500 characters or less';
     }
 
-    // Type validation
     const validTypes = ['Mini Album', 'Studio Album', 'Single', 'EP'];
     if (!validTypes.includes(formData.type)) {
       newErrors.type = 'Invalid album type';
     }
 
-    // Tracks validation
     if (!formData.tracks.trim()) {
       newErrors.tracks = 'At least one track is required';
     }
@@ -63,7 +57,7 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
       ...prev,
       [name]: value
     }));
-    // Clear error for this field when user starts typing
+    // Clear error
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -76,7 +70,6 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
     e.preventDefault();
     setSubmitStatus('');
 
-    // Validate form
     if (!validateForm()) {
       setSubmitStatus('Please fix the errors below');
       return;
@@ -85,13 +78,12 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
     setIsSubmitting(true);
 
     try {
-      // Convert tracks string to array
       const tracksArray = formData.tracks
         .split('\n')
         .map(track => track.trim())
         .filter(track => track.length > 0);
 
-      // Prepare data for server
+      //data for server
       const albumData = {
         title: formData.title,
         releaseDate: formData.releaseDate,
@@ -113,7 +105,7 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
           type: 'Mini Album',
           tracks: ''
         });
-        // Notify parent component to refresh list
+        // refresh list
         if (onAlbumAdded) {
           onAlbumAdded(response.data.album);
         }

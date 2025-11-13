@@ -8,6 +8,7 @@ import AddAlbumForm from '../components/AddAlbumForm';
 
 const Discography = () => {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const handleAlbumClick = (album) => {
     setSelectedAlbum(album);
@@ -17,6 +18,10 @@ const Discography = () => {
     setSelectedAlbum(null);
   };
 
+  const handleAlbumAdded = (newAlbum) => {
+    setRefreshTrigger(prev => prev + 1);
+  };
+
   return (
     <div className="discography-page">
       <Header title="DISCOGRAPHY" subtitle="Albums" />
@@ -24,7 +29,10 @@ const Discography = () => {
       <main>
         <AddAlbumForm onAlbumAdded={handleAlbumAdded} />
 
-        <AlbumList onAlbumClick={handleAlbumClick} refreshTrigger={refreshTrigger}/>
+        <AlbumList 
+          onAlbumClick={handleAlbumClick} 
+          refreshTrigger={refreshTrigger}
+        />
         
         <div className="pagination">
           <span id="pageInfo">All releases</span>
