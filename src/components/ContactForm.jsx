@@ -84,7 +84,7 @@ const Contact = () => {
         </button>
 
         {result && result !== "Sending...." && (
-          <div className={`form-message ${result.includes("Successfully") ? "success" : "error"}`}>
+          <div className={`form-message ${result.includes("Successfully") || result.includes("success") ? "success" : "error"}`}>
             {result}
           </div>
         )}

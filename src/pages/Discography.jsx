@@ -10,10 +10,8 @@ const Discography = () => {
   const [selectedAlbum, setSelectedAlbum] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
 
-  //<AddAlbumForm onAlbumAdded={handleAlbumAdded} />
-  
   const handleAlbumClick = (album) => {
-    //setSelectedAlbum(album);
+    setSelectedAlbum(album);
   };
 
   const handleCloseModal = () => {
@@ -24,13 +22,12 @@ const Discography = () => {
     setRefreshTrigger(prev => prev + 1);
   };
 
+
   return (
     <div className="discography-page">
       <Header title="DISCOGRAPHY" subtitle="Albums" />
       
       <main>
-        
-
         <AlbumList 
           onAlbumClick={handleAlbumClick} 
           refreshTrigger={refreshTrigger}
@@ -44,6 +41,8 @@ const Discography = () => {
       {selectedAlbum? ("") : (
         <AlbumModal album={selectedAlbum} onClose={handleCloseModal} />
       )}
+
+      <AddAlbumForm onAlbumAdded={handleAlbumAdded} />
 
       <Footer />
     </div>
