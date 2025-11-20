@@ -6,7 +6,6 @@ import AlbumModal from './../components/AlbumModal';
 import AddAlbumForm from '../components/AddAlbumForm';
 import EditAlbumForm from '../components/EditAlbumForm';
 import './../css/Discography.css';
-import AddAlbumForm from '../components/AddAlbumForm';
 
 const Discography = () => {
   const [selectedAlbum, setSelectedAlbum] = useState(false);

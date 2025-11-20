@@ -3,7 +3,7 @@ import axios from "axios";
 import AlbumCard from "./AlbumCard";
 import "./../css/AlbumList.css";
 
-const AlbumList = ({ onAlbumClick, limit, refreshTrigger }) => {
+const AlbumList = ({ onAlbumClick, limit, refreshTrigger, onEdit, onDelete }) => {
     const [albums, setAlbums] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
