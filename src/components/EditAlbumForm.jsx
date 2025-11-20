@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import './../css/AddAlbumForm.css';
+import './../css/AddAlbumForm.css'; // Reuse the same styles
 
-const AddAlbumForm = ({ onAlbumAdded }) => {
+const EditAlbumForm = ({ album, onAlbumUpdated, onCancel }) => {
   const [formData, setFormData] = useState({
     title: '',
     releaseDate: '',
@@ -15,7 +15,20 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
   const [submitStatus, setSubmitStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const SERVER_URL = 'https://straykids-server-2.onrender.com'; 
+  const SERVER_URL = 'https://straykids-server-2.onrender.com';
+
+  // Populate form with album data
+  useEffect(() => {
+    if (album) {
+      setFormData({
+        title: album.title,
+        releaseDate: album.releaseDate,
+        description: album.description,
+        type: album.type,
+        tracks: Array.isArray(album.tracks) ? album.tracks.join('\n') : ''
+      });
+    }
+  }, [album]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -51,6 +64,20 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitStatus('');
@@ -68,7 +95,6 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
         .map(track => track.trim())
         .filter(track => track.length > 0);
 
-      //data for server
       const albumData = {
         title: formData.title,
         releaseDate: formData.releaseDate,
@@ -77,30 +103,23 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
         tracks: tracksArray
       };
 
-      // Send POST request
-      const response = await axios.post(`${SERVER_URL}/api/albums`, albumData);
+      const response = await axios.put(
+        `${SERVER_URL}/api/albums/${album._id}`, 
+        albumData
+      );
 
       if (response.data.success) {
         setSubmitStatus('success');
-        // Clear form
-        setFormData({
-          title: '',
-          releaseDate: '',
-          description: '',
-          type: 'Mini Album',
-          tracks: ''
-        });
-        // refresh list
-        if (onAlbumAdded) {
-          onAlbumAdded(response.data.album);
+        if (onAlbumUpdated) {
+          onAlbumUpdated(response.data.album);
         }
       }
     } catch (error) {
-      console.error('Error adding album:', error);
+      console.error('Error updating album:', error);
       if (error.response && error.response.data) {
         setSubmitStatus(`Error: ${error.response.data.message}`);
       } else {
-        setSubmitStatus('Error: Failed to add album. Please try again.');
+        setSubmitStatus('Error: Failed to update album. Please try again.');
       }
     } finally {
       setIsSubmitting(false);
@@ -109,7 +128,7 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
 
   return (
     <div className="add-album-form-container">
-      <h3>Add New Album</h3>
+      <h3>Edit Album</h3>
       <form onSubmit={handleSubmit} className="add-album-form">
         <div className="form-row">
           <div className="form-group">
@@ -118,7 +137,12 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
               type="text"
               id="title"
               name="title"
+              value={formData.title}
+              onChange={handleChange}
+              className={errors.title ? 'error' : ''}
+              disabled={isSubmitting}
             />
+            {errors.title && <span className="error-message">{errors.title}</span>}
           </div>
 
           <div className="form-group">
@@ -128,7 +152,12 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
               id="releaseDate"
               name="releaseDate"
               placeholder="e.g., March 16, 2018"
+              value={formData.releaseDate}
+              onChange={handleChange}
+              className={errors.releaseDate ? 'error' : ''}
+              disabled={isSubmitting}
             />
+            {errors.releaseDate && <span className="error-message">{errors.releaseDate}</span>}
           </div>
         </div>
 
@@ -137,6 +166,9 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
           <select
             id="type"
             name="type"
+            value={formData.type}
+            onChange={handleChange}
+            disabled={isSubmitting}
           >
             <option value="Mini Album">Mini Album</option>
             <option value="Studio Album">Studio Album</option>
@@ -150,12 +182,17 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
           <textarea
             id="description"
             name="description"
+            value={formData.description}
+            onChange={handleChange}
             rows="4"
             placeholder="Describe the album (10-500 characters)"
+            className={errors.description ? 'error' : ''}
+            disabled={isSubmitting}
           />
           <span className="char-count">
             {formData.description.length}/500 characters
           </span>
+          {errors.description && <span className="error-message">{errors.description}</span>}
         </div>
 
         <div className="form-group">
@@ -163,20 +200,34 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
           <textarea
             id="tracks"
             name="tracks"
+            value={formData.tracks}
+            onChange={handleChange}
             rows="6"
             placeholder="Track 1&#10;Track 2&#10;Track 3"
+            className={errors.tracks ? 'error' : ''}
+            disabled={isSubmitting}
           />
           {errors.tracks && <span className="error-message">{errors.tracks}</span>}
         </div>
 
-        <button type="submit" className="submit-btn" disabled={isSubmitting}>
-          {isSubmitting ? 'Adding Album...' : 'Add Album'}
-        </button>
+        <div className="button-group">
+          <button type="submit" className="submit-btn" disabled={isSubmitting}>
+            {isSubmitting ? 'Updating Album...' : 'Update Album'}
+          </button>
+          <button 
+            type="button" 
+            className="cancel-btn" 
+            onClick={onCancel}
+            disabled={isSubmitting}
+          >
+            Cancel
+          </button>
+        </div>
 
         {submitStatus && (
           <div className={`submit-message ${submitStatus === 'success' ? 'success' : 'error'}`}>
             {submitStatus === 'success' 
-              ? '✓ Album added successfully!' 
+              ? '✓ Album updated successfully!' 
               : submitStatus}
           </div>
         )}
@@ -185,4 +236,4 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
   );
 };
 
-export default AddAlbumForm;
+export default EditAlbumForm;
