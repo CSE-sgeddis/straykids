@@ -36,7 +36,7 @@ const AlbumList = ({ onAlbumClick, limit, refreshTrigger, onEdit, onDelete }) =>
         }
 
         try {
-            const response = await axios.delete("https://straykids-server-2.onrender.com/api/albums");
+            const response = await axios.delete(`${SERVER_URL}/api/albums/${albumId}`);
             if (response.data.success) {
                 setAlbums(albums.filter(album => album._id !== albumId));
                 

@@ -223,14 +223,6 @@ const EditAlbumForm = ({ album, onAlbumUpdated, onCancel }) => {
             Cancel
           </button>
         </div>
-
-        {submitStatus && (
-          <div className={`submit-message ${submitStatus === 'success' ? 'success' : 'error'}`}>
-            {submitStatus === 'success' 
-              ? '✓ Album updated successfully!' 
-              : submitStatus}
-          </div>
-        )}
       </form>
     </div>
   );

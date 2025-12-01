@@ -11,6 +11,12 @@ const Discography = () => {
   const [selectedAlbum, setSelectedAlbum] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [editingAlbum, setEditingAlbum] = useState(null);
+  const [notification, setNotification] = useState(null);
+
+  const showNotification = (message, type = 'success') => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 5000); 
+  };
 
   const handleAlbumClick = (album) => {
     setSelectedAlbum(album);
@@ -45,6 +51,12 @@ const Discography = () => {
   return (
     <div className="discography-page">
       <Header title="DISCOGRAPHY" subtitle="Albums" />
+
+      {notification && (
+        <div className={`notification ${notification.type}`}>
+          {notification.message}
+        </div>
+      )}
       
       <main>
         <AlbumList 
