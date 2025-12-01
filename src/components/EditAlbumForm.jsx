@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import './../css/AddAlbumForm.css'; 
+import './../css/AddAlbumForm.css';
 
 const EditAlbumForm = ({ album, onAlbumUpdated, onCancel }) => {
   const [formData, setFormData] = useState({
@@ -8,11 +8,13 @@ const EditAlbumForm = ({ album, onAlbumUpdated, onCancel }) => {
     releaseDate: '',
     description: '',
     type: 'Mini Album',
-    tracks: ''
+    tracks: '',
+    img: null
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const SERVER_URL = 'https://straykids-server-2.onrender.com';
 
@@ -23,8 +25,13 @@ const EditAlbumForm = ({ album, onAlbumUpdated, onCancel }) => {
         releaseDate: album.releaseDate,
         description: album.description,
         type: album.type,
-        tracks: Array.isArray(album.tracks) ? album.tracks.join('\n') : ''
+        tracks: Array.isArray(album.tracks) ? album.tracks.join('\n') : '',
+        img: null
       });
+      // Set current image as preview
+      if (album.img_name) {
+        setImagePreview(`${SERVER_URL}${album.img_name}`);
+      }
     }
   }, [album]);
 
@@ -76,6 +83,22 @@ const EditAlbumForm = ({ album, onAlbumUpdated, onCancel }) => {
     }
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData(prev => ({
+        ...prev,
+        img: file
+      }));
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -92,17 +115,26 @@ const EditAlbumForm = ({ album, onAlbumUpdated, onCancel }) => {
         .map(track => track.trim())
         .filter(track => track.length > 0);
 
-      const albumData = {
-        title: formData.title,
-        releaseDate: formData.releaseDate,
-        description: formData.description,
-        type: formData.type,
-        tracks: tracksArray
-      };
+      // Use FormData for file upload
+      const formDataToSend = new FormData();
+      formDataToSend.append('title', formData.title);
+      formDataToSend.append('releaseDate', formData.releaseDate);
+      formDataToSend.append('description', formData.description);
+      formDataToSend.append('type', formData.type);
+      formDataToSend.append('tracks', JSON.stringify(tracksArray));
+      
+      if (formData.img) {
+        formDataToSend.append('img', formData.img);
+      }
 
       const response = await axios.put(
-        `${SERVER_URL}/api/albums/${album._id}`, 
-        albumData
+        `${SERVER_URL}/api/albums/${album._id}`,
+        formDataToSend,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
       );
 
       if (response.data.success) {
@@ -170,6 +202,26 @@ const EditAlbumForm = ({ album, onAlbumUpdated, onCancel }) => {
             <option value="Single">Single</option>
             <option value="EP">EP</option>
           </select>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="img">Album Cover Image</label>
+          <input
+            type="file"
+            id="img"
+            name="img"
+            accept="image/*"
+            onChange={handleImageChange}
+            disabled={isSubmitting}
+          />
+          {imagePreview && (
+            <div className="image-preview">
+              <img src={imagePreview} alt="Album cover preview" />
+              <p className="preview-note">
+                {formData.img ? 'New image selected' : 'Current image'}
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="form-group">

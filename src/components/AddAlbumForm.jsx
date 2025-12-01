@@ -8,12 +8,13 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
     releaseDate: '',
     description: '',
     type: 'Mini Album',
-    tracks: ''
+    tracks: '',
+    img: null
   });
 
   const [errors, setErrors] = useState({});
-  const [submitStatus, setSubmitStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const SERVER_URL = 'https://straykids-server-2.onrender.com'; 
 
@@ -57,7 +58,6 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
       ...prev,
       [name]: value
     }));
-    // Clear error
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -66,12 +66,27 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
     }
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData(prev => ({
+        ...prev,
+        img: file
+      }));
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitStatus('');
 
     if (!validateForm()) {
-      setSubmitStatus('Please fix the errors below');
+      alert('Please fix the errors below');
       return;
     }
 
@@ -83,25 +98,35 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
         .map(track => track.trim())
         .filter(track => track.length > 0);
 
-      const albumData = {
-        title: formData.title,
-        releaseDate: formData.releaseDate,
-        description: formData.description,
-        type: formData.type,
-        tracks: tracksArray
-      };
+      // Use FormData for file upload
+      const formDataToSend = new FormData();
+      formDataToSend.append('title', formData.title);
+      formDataToSend.append('releaseDate', formData.releaseDate);
+      formDataToSend.append('description', formData.description);
+      formDataToSend.append('type', formData.type);
+      formDataToSend.append('tracks', JSON.stringify(tracksArray));
+      
+      if (formData.img) {
+        formDataToSend.append('img', formData.img);
+      }
 
-      const response = await axios.post(`${SERVER_URL}/api/albums`, albumData);
+      const response = await axios.post(`${SERVER_URL}/api/albums`, formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
 
       if (response.data.success) {
-        setSubmitStatus('success');
         setFormData({
           title: '',
           releaseDate: '',
           description: '',
           type: 'Mini Album',
-          tracks: ''
+          tracks: '',
+          img: null
         });
+        setImagePreview(null);
+        
         if (onAlbumAdded) {
           onAlbumAdded(response.data.album);
         }
@@ -109,9 +134,9 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
     } catch (error) {
       console.error('Error adding album:', error);
       if (error.response && error.response.data) {
-        setSubmitStatus(`Error: ${error.response.data.message}`);
+        alert(`Error: ${error.response.data.message}`);
       } else {
-        setSubmitStatus('Error: Failed to add album. Please try again.');
+        alert('Error: Failed to add album. Please try again.');
       }
     } finally {
       setIsSubmitting(false);
@@ -169,6 +194,23 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
         </div>
 
         <div className="form-group">
+          <label htmlFor="img">Album Cover Image</label>
+          <input
+            type="file"
+            id="img"
+            name="img"
+            accept="image/*"
+            onChange={handleImageChange}
+            disabled={isSubmitting}
+          />
+          {imagePreview && (
+            <div className="image-preview">
+              <img src={imagePreview} alt="Preview" />
+            </div>
+          )}
+        </div>
+
+        <div className="form-group">
           <label htmlFor="description">Description *</label>
           <textarea
             id="description"
@@ -204,12 +246,6 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
         <button type="submit" className="submit-btn" disabled={isSubmitting}>
           {isSubmitting ? 'Adding Album...' : 'Add Album'}
         </button>
-
-        {submitStatus && submitStatus !== 'success' && (
-          <div className="submit-message error">
-            {submitStatus}
-          </div>
-        )}
       </form>
     </div>
   );
