@@ -148,10 +148,9 @@ const EditAlbumForm = ({ album, onAlbumUpdated, onCancel }) => {
           <div className="form-group">
             <label htmlFor="releaseDate">Release Date *</label>
             <input
-              type="text"
+              type="date"
               id="releaseDate"
               name="releaseDate"
-              placeholder="e.g., March 16, 2018"
               value={formData.releaseDate}
               onChange={handleChange}
               className={errors.releaseDate ? 'error' : ''}

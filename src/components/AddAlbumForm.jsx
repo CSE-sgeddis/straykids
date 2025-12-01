@@ -51,6 +51,21 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Clear error
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitStatus('');
@@ -124,11 +139,15 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
           <div className="form-group">
             <label htmlFor="releaseDate">Release Date *</label>
             <input
-              type="text"
+              type="date"
               id="releaseDate"
               name="releaseDate"
-              placeholder="e.g., March 16, 2018"
+              value={formData.releaseDate}
+              onChange={handleChange}
+              className={errors.releaseDate ? 'error' : ''}
+              disabled={isSubmitting}
             />
+            {errors.releaseDate && <span className="error-message">{errors.releaseDate}</span>}
           </div>
         </div>
 
