@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import './../css/AddAlbumForm.css'; // Reuse the same styles
+import './../css/AddAlbumForm.css'; 
 
 const EditAlbumForm = ({ album, onAlbumUpdated, onCancel }) => {
   const [formData, setFormData] = useState({
@@ -12,12 +12,10 @@ const EditAlbumForm = ({ album, onAlbumUpdated, onCancel }) => {
   });
 
   const [errors, setErrors] = useState({});
-  const [submitStatus, setSubmitStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const SERVER_URL = 'https://straykids-server-2.onrender.com';
 
-  // Populate form with album data
   useEffect(() => {
     if (album) {
       setFormData({
@@ -80,10 +78,9 @@ const EditAlbumForm = ({ album, onAlbumUpdated, onCancel }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitStatus('');
 
     if (!validateForm()) {
-      setSubmitStatus('Please fix the errors below');
+      alert('Please fix the errors below');
       return;
     }
 
@@ -109,7 +106,6 @@ const EditAlbumForm = ({ album, onAlbumUpdated, onCancel }) => {
       );
 
       if (response.data.success) {
-        setSubmitStatus('success');
         if (onAlbumUpdated) {
           onAlbumUpdated(response.data.album);
         }
@@ -117,9 +113,9 @@ const EditAlbumForm = ({ album, onAlbumUpdated, onCancel }) => {
     } catch (error) {
       console.error('Error updating album:', error);
       if (error.response && error.response.data) {
-        setSubmitStatus(`Error: ${error.response.data.message}`);
+        alert(`Error: ${error.response.data.message}`);
       } else {
-        setSubmitStatus('Error: Failed to update album. Please try again.');
+        alert('Error: Failed to update album. Please try again.');
       }
     } finally {
       setIsSubmitting(false);

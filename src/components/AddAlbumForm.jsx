@@ -83,7 +83,6 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
         .map(track => track.trim())
         .filter(track => track.length > 0);
 
-      //data for server
       const albumData = {
         title: formData.title,
         releaseDate: formData.releaseDate,
@@ -92,12 +91,10 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
         tracks: tracksArray
       };
 
-      // Send POST request
       const response = await axios.post(`${SERVER_URL}/api/albums`, albumData);
 
       if (response.data.success) {
         setSubmitStatus('success');
-        // Clear form
         setFormData({
           title: '',
           releaseDate: '',
@@ -105,7 +102,6 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
           type: 'Mini Album',
           tracks: ''
         });
-        // refresh list
         if (onAlbumAdded) {
           onAlbumAdded(response.data.album);
         }
@@ -133,7 +129,12 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
               type="text"
               id="title"
               name="title"
+              value={formData.title}
+              onChange={handleChange}
+              className={errors.title ? 'error' : ''}
+              disabled={isSubmitting}
             />
+            {errors.title && <span className="error-message">{errors.title}</span>}
           </div>
 
           <div className="form-group">
@@ -156,6 +157,9 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
           <select
             id="type"
             name="type"
+            value={formData.type}
+            onChange={handleChange}
+            disabled={isSubmitting}
           >
             <option value="Mini Album">Mini Album</option>
             <option value="Studio Album">Studio Album</option>
@@ -169,12 +173,17 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
           <textarea
             id="description"
             name="description"
+            value={formData.description}
+            onChange={handleChange}
             rows="4"
             placeholder="Describe the album (10-500 characters)"
+            className={errors.description ? 'error' : ''}
+            disabled={isSubmitting}
           />
           <span className="char-count">
             {formData.description.length}/500 characters
           </span>
+          {errors.description && <span className="error-message">{errors.description}</span>}
         </div>
 
         <div className="form-group">
@@ -182,8 +191,12 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
           <textarea
             id="tracks"
             name="tracks"
+            value={formData.tracks}
+            onChange={handleChange}
             rows="6"
             placeholder="Track 1&#10;Track 2&#10;Track 3"
+            className={errors.tracks ? 'error' : ''}
+            disabled={isSubmitting}
           />
           {errors.tracks && <span className="error-message">{errors.tracks}</span>}
         </div>
@@ -192,11 +205,9 @@ const AddAlbumForm = ({ onAlbumAdded }) => {
           {isSubmitting ? 'Adding Album...' : 'Add Album'}
         </button>
 
-        {submitStatus && (
-          <div className={`submit-message ${submitStatus === 'success' ? 'success' : 'error'}`}>
-            {submitStatus === 'success' 
-              ? '✓ Album added successfully!' 
-              : submitStatus}
+        {submitStatus && submitStatus !== 'success' && (
+          <div className="submit-message error">
+            {submitStatus}
           </div>
         )}
       </form>

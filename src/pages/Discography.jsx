@@ -26,18 +26,20 @@ const Discography = () => {
     setSelectedAlbum(false);
   };
 
-  const handleAlbumAdded = (newAlbum) => {
+  const handleAlbumAdded = () => {
     setRefreshTrigger(prev => prev + 1);
+    showNotification('Album added successfully!', 'success');
   };
 
   const handleEdit = (album) => {
     setEditingAlbum(album);
-    setSelectedAlbum(false); // Close modal if open
+    setSelectedAlbum(false); 
   };
 
   const handleAlbumUpdated = () => {
     setRefreshTrigger(prev => prev + 1);
     setEditingAlbum(null);
+    showNotification('Album updated successfully!', 'success');
   };
 
   const handleCancelEdit = () => {
@@ -46,6 +48,7 @@ const Discography = () => {
 
   const handleDelete = () => {
     setRefreshTrigger(prev => prev + 1);
+    showNotification('Album deleted successfully!', 'success');
   };
 
   return (
